@@ -1,0 +1,41 @@
+<div ngClass="container-fluid">
+  <table *ngIf="this.cs.getCarrosPresentes().length > 0" ngClass="table table-striped">
+    <thead ngClass="thead">
+      <tr>
+        <th>Modelo</th>
+        <th>Cor</th>
+        <th>Ano</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+        <th>Reserva</th>
+        <th>Compra e venda</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let carro of this.cs.getCarrosPresentes()">
+        <td>{{ carro.modelo }}</td>
+        <td>{{ carro.cor }}</td>
+        <td>{{ carro.anoLancamento }}</td>
+        <td>{{ formatter.format(carro.preco) }}</td>
+        <td>{{ getQuantidadeReservadosStr(carro) }}</td>
+        <td>
+          <div class="btn-group">
+            <input *ngIf="carro.quantidade - carro.reservados > 0" type="button" class="btn btn-dark" (click)=reservarCarro(carro) value="Reservar 1">
+            <input *ngIf="carro.reservados > 0"  type="button" class="btn btn-dark" (click)=desreservarCarro(carro) value="Cancelar reserva de 1">
+          </div>
+        </td>
+        <td>
+          <div class="btn-group">
+            <input (click)=comprarCarro(carro) type="button" class="btn btn-dark" value="Comprar 1">
+            <input *ngIf="carro.reservados> 0" (click)=venderCarro(carro) type="button" class="btn btn-dark" value="Vender 1">
+          </div>
+        </td>
+      </tr>
+    <tbody>
+  </table>
+
+  <div *ngIf="this.cs.getCarrosPresentes().length === 0" ngClass="row">
+    <br>
+    <p ngClass="mx-auto">Parece que não tem carros por aqui...</p>
+  </div>
+</div>

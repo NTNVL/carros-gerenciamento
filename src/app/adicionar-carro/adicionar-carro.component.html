@@ -1,0 +1,97 @@
+<br>
+<div ngClass="container">
+  <div class="row">
+    <div class="col mx-auto">
+      <form [formGroup]="carroForm">
+        <div class="form-row form-group">
+          <div class="col-2">
+            <label class="control-label" for="InputModelo">Modelo</label>
+          </div>
+          <div class="col-5 mx-auto">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="modelo"
+              required
+              #modelo>
+          </div>
+        </div>
+
+        <div class="form-row form-group">
+          <div class="col-2">
+            <label class="control-label" for="InputCor">Cor</label>
+          </div>
+          <div class="col-5 mx-auto">
+            <select
+              class="form-control"
+              formControlName="cor"
+              #cor>
+              <option *ngFor="let cor of cores">{{cor}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row form-group">
+          <div class="col-2">
+            <label class="control-label" for="InputAno">Ano de Lançamento: {{ ano.value }}</label>
+          </div>
+          <div class="col-5 mx-auto">
+            <input
+              type="range"
+              min="1800"
+              max="2021"
+              ng-pattern="integerval"
+              class="form-control"
+              formControlName="ano"
+              required
+              #ano>
+          </div>
+        </div>
+
+        <div class="form-row form-group">
+          <div class="col-2">
+            <label class="control-label" for="InputPreco">Preço</label>
+          </div>
+          <div class="col-5 mx-auto">
+            <input
+              type="number"
+              ng-pattern="integerval"
+              class="form-control"
+              formControlName="preco"
+              required
+              #preco>
+          </div>
+        </div>
+
+        <div class="form-row form-group">
+          <div class="col-2">
+            <label class="control-label" for="InputPreco">Quantidade</label>
+          </div>
+          <div class="col-5 mx-auto">
+            <input
+              type="number"
+              ng-pattern="integerval"
+              class="form-control"
+              formControlName="quantidade"
+              required
+              #quantidade>
+          </div>
+        </div>
+
+        <div class="form-row form-group">
+          <button
+            type="submit"
+            class="btn btn-dark"
+            (click)="adicionar(modelo.value, cor.value, +ano.value, +preco.value, +quantidade.value)"
+            [disabled]="carroForm.invalid">Adicionar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="aparecer" class="alert alert-success" role="alert">
+    Carro adicionado ao inventário com sucesso!
+  </div>
+</div>
+
+
